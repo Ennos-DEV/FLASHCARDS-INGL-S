@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards de Inglês</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f2f5;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .flashcard {
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+      margin-bottom: 20px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .flashcard.flip .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      background: white;
+      border: 2px solid #333;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+      background: #e0ffe0;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background: #333;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Flashcards de Inglês</h1>
+
+<div class="flashcard" id="flashcard">
+  <div class="card-inner" id="card-inner">
+    <div class="card-front" id="card-front"></div>
+    <div class="card-back" id="card-back"></div>
+  </div>
+</div>
+
+<div>
+  <button onclick="prevCard()">Anterior</button>
+  <button onclick="nextCard()">Próximo</button>
+</div>
+
+<script>
+const flashcards = [
+  {front: "I am happy.", back: "Eu estou feliz."},
+  {front: "She is a teacher.", back: "Ela é professora."},
+  {front: "They are at home.", back: "Eles estão em casa."},
+  {front: "I have a dog.", back: "Eu tenho um cachorro."},
+  {front: "He has two brothers.", back: "Ele tem dois irmãos."},
+  {front: "We have a question.", back: "Nós temos uma pergunta."},
+  {front: "I am able to swim.", back: "Eu consigo nadar."},
+  {front: "She is able to speak French.", back: "Ela consegue falar francês."},
+  {front: "Are you able to help me?", back: "Você pode me ajudar?"},
+  {front: "Come here, please.", back: "Venha aqui, por favor."},
+  {front: "He comes every day.", back: "Ele vem todos os dias."},
+  {front: "They are coming now.", back: "Eles estão vindo agora."},
+  {front: "I go to school.", back: "Eu vou para a escola."},
+  {front: "She is going to the market.", back: "Ela está indo ao mercado."},
+  {front: "Let's go!", back: "Vamos!"},
+  {front: "I know the answer.", back: "Eu sei a resposta."},
+  {front: "Do you know him?", back: "Você o conhece?"},
+  {front: "She knows my name.", back: "Ela sabe o meu nome."},
+  {front: "Take your umbrella.", back: "Pegue seu guarda-chuva."},
+  {front: "I take the bus to work.", back: "Eu pego o ônibus para o trabalho."},
+  {front: "He took my pen.", back: "Ele pegou minha caneta."},
+  {front: "I want a sandwich.", back: "Eu quero um sanduíche."},
+  {front: "She wants to travel.", back: "Ela quer viajar."},
+  {front: "Do you want coffee?", back: "Você quer café?"},
+  {front: "I say 'hello' to everyone.", back: "Eu digo 'olá' para todos."},
+  {front: "He said the truth.", back: "Ele disse a verdade."},
+  {front: "Tell me your name.", back: "Diga-me seu nome."},
+  {front: "I do my homework.", back: "Eu faço minha lição de casa."},
+  {front: "She makes a cake.", back: "Ela faz um bolo."},
+  {front: "What are you doing?", back: "O que você está fazendo?"},
+  {front: "I see a bird.", back: "Eu vejo um pássaro."},
+  {front: "Did you see that?", back: "Você viu aquilo?"},
+  {front: "We can see the stars.", back: "Nós podemos ver as estrelas."},
+  {front: "Give me the book, please.", back: "Me dê o livro, por favor."},
+  {front: "She gives me a gift.", back: "Ela me dá um presente."},
+  {front: "He gave me a ride.", back: "Ele me deu uma carona."}
+];
+
+let currentCard = 0;
+const cardFront = document.getElementById('card-front');
+const cardBack = document.getElementById('card-back');
+const cardInner = document.getElementById('card-inner');
+const flashcard = document.getElementById('flashcard');
+
+function showCard() {
+  cardFront.textContent = flashcards[currentCard].front;
+  cardBack.textContent = flashcards[currentCard].back;
+}
+
+function nextCard() {
+  currentCard = (currentCard + 1) % flashcards.length;
+  showCard();
+  flashcard.classList.remove('flip');
+}
+
+function prevCard() {
+  currentCard = (currentCard - 1 + flashcards.length) % flashcards.length;
+  showCard();
+  flashcard.classList.remove('flip');
+}
+
+flashcard.addEventListener('click', () => {
+  flashcard.classList.toggle('flip');
+});
+
+// Inicializar
+showCard();
+</script>
+
+</body>
+</html>
